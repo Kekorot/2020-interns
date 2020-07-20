@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge"/>
+    <title>INR And GBP Exchange Rate With Current Rate</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+</head>
+<body>
+    
+    <canvas id="graph" width="450" height="200"></canvas>
+    <h3 id="rupee"></h3>
+    <h3 id="pound"></h3>
+
+    
+
+    
+    <script>
+        
+        
+        const date=[];
+        const temp=[];
+        const temp2=[];
+        const exchange=[];
+        const exchange2=[];
+        
+
+        
+
+        draw_graph();
+        
+        async function draw_graph(){
+        await getdata();
+        const ctx = document.getElementById('graph').getContext('2d');
+        
+         const myChart = new Chart(ctx, {
+         type: 'line',
+         data: {
+        labels: date,
+        datasets: [
+            {
+            label: 'Exchange Rate INR',
+            data: exchange,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            fill:false,
+                
+            borderWidth: 1
+        },
+        {
+            
+            label: 'Exchange Rate GBP',
+            data: exchange2,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            fill:false,
+                
+            borderWidth: 1
+        }
+        ]
+    },
+    
+});
+       
+ }
+
+
+
+        /*********************************************************************************************/
+        
+        async function getdata(){
+            const response = await fetch('data.json');
+            const latest_data =await fetch('latest-rates.json');
+            const data = await response.json();
+            const l_rates =await latest_data.json();
+
+            //console.log(l_rates.rates.INR);
+            //console.log(l_rates.rates.GBP);
+
+
+            const inr =l_rates.rates.INR;
+            const gbp =l_rates.rates.GBP;
+            document.getElementById("rupee").innerHTML = "INR :"+inr;
+            document.getElementById("pound").innerHTML = "GBP :"+gbp;
+
+           // document.write("INR :"+inr);
+
+            console.log(inr,gbp);
+
+            
+
+            Object.keys(data.rates).map(key=>(
+              temp.push(key+":"+data.rates[key].INR)
+              
+            ))
+
+            Object.keys(data.rates).map(key=>(
+              temp2.push(key+":"+data.rates[key].GBP)
+              
+            ))
+
+            //console.log(temp);
+
+            temp.sort();
+            temp2.sort();
+
+            
+
+            for(i=0;i<22;i++)
+            {
+                var first=temp[i].slice(0,10);
+                date.push(first);
+
+                var mid=temp[i].slice(11,19);
+                exchange.push(mid);
+
+                var last=temp2[i].slice(11,19);
+                exchange2.push(last);
+
+
+               
+               
+               // console.log(first,mid,last);
+                
+
+            }
+
+           
+            
+
+            
+
+           
+        }
+    </script>
+    
+</body>
+</html>
