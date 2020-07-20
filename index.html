@@ -4,33 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge"/>
-    <title>Currency exchange</title>
+    <title>Exchange Rate</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
 <body>
+
+    <canvas id="graph" width="500" height="220"></canvas>
     <script>
+        
+        
         const date=[];
+        const temp=[];
         const exchange=[];
-        getdata();
+        
+
+        
+
+        draw_graph();
+        
+        async function draw_graph(){
+        await getdata();
+        const ctx = document.getElementById('graph').getContext('2d');
+         const myChart = new Chart(ctx, {
+         type: 'line',
+         data: {
+        labels: date,
+        datasets: [{
+            label: 'Exchange Rate Against EUR',
+            data: exchange,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            fill:false,
+                
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    
+                    callback: function(value, index, values) {
+                        return value + ' ₹';
+                    }
+                }
+            }]
+        }
+    }
+});
+       
+ }
+
+
+
+        /*********************************************************************************************/
+        
         async function getdata(){
             const response = await fetch('data.json');
             const data = await response.json();
             
 
             Object.keys(data.rates).map(key=>(
-              //console.log(key,data.rates[key].INR)
-              date.push(key)
+              temp.push(key+":"+data.rates[key].INR)
               
             ))
 
-            console.log(date);
-           
-            Object.keys(data.rates).map(key=>(
-              //console.log(key,data.rates[key].INR)
-              exchange.push(data.rates[key].INR)
-              
-            ))
             
-            console.log(exchange);
+
+            temp.sort();
+
+            
+
+            for(i=0;i<22;i++)
+            {
+                var first=temp[i].slice(0,10);
+                date.push(first);
+
+                var last=temp[i].slice(11,19);
+                exchange.push(last);
+               
+               
+                console.log(first);
+                
+
+            }
+
+           
+            
+
+            
+
+           
         }
     </script>
     
