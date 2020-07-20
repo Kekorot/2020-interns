@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge"/>
+    <title>Currency exchange</title>
+</head>
+<body>
+    <script>
+        const date=[];
+        const exchange=[];
+        getdata();
+        async function getdata(){
+            const response = await fetch('data.json');
+            const data = await response.json();
+            
+
+            Object.keys(data.rates).map(key=>(
+              //console.log(key,data.rates[key].INR)
+              date.push(key)
+              
+            ))
+
+            console.log(date);
+           
+            Object.keys(data.rates).map(key=>(
+              //console.log(key,data.rates[key].INR)
+              exchange.push(data.rates[key].INR)
+              
+            ))
+            
+            console.log(exchange);
+        }
+    </script>
+    
+</body>
+</html>
