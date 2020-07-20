@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge"/>
-    <title>INR Exchange Rate</title>
+    <title>INR And GBP Exchange Rate </title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
 <body>
@@ -15,7 +15,9 @@
         
         const date=[];
         const temp=[];
+        const temp2=[];
         const exchange=[];
+        const exchange2=[];
         
 
         
@@ -29,28 +31,29 @@
          type: 'line',
          data: {
         labels: date,
-        datasets: [{
-            label: 'Exchange Rate Against EUR',
+        datasets: [
+            {
+            label: 'Exchange Rate INR',
             data: exchange,
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)',
             fill:false,
                 
             borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    
-                    callback: function(value, index, values) {
-                        return value + ' ₹';
-                    }
-                }
-            }]
+        },
+        {
+            
+            label: 'Exchange Rate GBP',
+            data: exchange2,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            fill:false,
+                
+            borderWidth: 1
         }
-    }
+        ]
+    },
+    
 });
        
  }
@@ -69,9 +72,15 @@
               
             ))
 
-            
+            Object.keys(data.rates).map(key=>(
+              temp2.push(key+":"+data.rates[key].GBP)
+              
+            ))
+
+            //console.log(temp);
 
             temp.sort();
+            temp2.sort();
 
             
 
@@ -80,11 +89,16 @@
                 var first=temp[i].slice(0,10);
                 date.push(first);
 
-                var last=temp[i].slice(11,19);
-                exchange.push(last);
+                var mid=temp[i].slice(11,19);
+                exchange.push(mid);
+
+                var last=temp2[i].slice(11,19);
+                exchange2.push(last);
+
+
                
                
-                console.log(first);
+                console.log(first,mid,last);
                 
 
             }
