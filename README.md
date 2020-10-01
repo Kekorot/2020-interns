@@ -32,7 +32,7 @@ implementing more Task and Feature to make your candidature more solid.
 ##### Your work is to submit any one or all of the below mentioned tasks
 
 `Applicable to [T1], [T2], and [T3]: Historic data can be found using data.json file`
--  `[T-1]` Plot the graph of INR exchange rate against EUR from 1 Jan 2019 to 31 Jan 2019
+-  `[T-1]` Plot the graph of INR exchange rate against EUR from 1 Jan 2019 to 31 Jan 2019.
 - `[T-2]` Plot the graph of INR and GBP exchange rate against EUR from 1 Jan 2019 to 31 Jan 2019.
 - `[T-3]` Plot the graph of INR and GBP exchange rate against EUR from 1 Jan 2019 to 31 Jan 2019 and also indicate
 the current rate for INR and GBP on the graph itself. (You will get latest rates in the latest-rates.json file)
@@ -44,7 +44,7 @@ Assignment.
 
 
 #### Nice to have features-
-- `[F-1]` - Make date range dynamic so that we can select our own date range
+- `[F-1]` - Make date range dynamic so that we can select our own date range.
 - `[F-2]` - Make selection of currency symbol dynamic, so we can choose any currency and the graph should
 update accordingly.You can choose any graph style as per your choice but it should represent data in a
 meaningful way.
